@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_simplejwt",
+    "channels",
     "accounts",
     "corsheaders",
+    "chat",
 ]
 
 MIDDLEWARE = [
@@ -146,3 +148,14 @@ SIMPLE_JWT = {
 
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+ASGI_APPLICATION = 'backend.asgi.application'
+# Add Channels Layers (Redis for WebSocket management)
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",  # Change to Redis later for production
+    },
+}
+
+
+SECURE_CONTENT_TYPE_NOSNIFF = False
