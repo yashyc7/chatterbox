@@ -151,11 +151,22 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 ASGI_APPLICATION = 'backend.asgi.application'
 # Add Channels Layers (Redis for WebSocket management)
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels.layers.InMemoryChannelLayer",  # Change to Redis later for production
+#     },
+# }
+
+
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",  # Change to Redis later for production
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
     },
 }
+
 
 
 SECURE_CONTENT_TYPE_NOSNIFF = False
